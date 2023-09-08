@@ -4,13 +4,13 @@ Squatty helps you reserve names for your crates on <crates.io>.
 
 ## Installation
 
-```bash
+```text
 $ cargo install cargo-squatty
 ```
 
 ## Usage
 
-```bash
+```text
 $ cargo squatty --help
 Easily reserve a crate name on <crates.io>
 
@@ -43,7 +43,7 @@ See https://doc.rust-lang.org/cargo/reference/manifest.html#package-metadata for
 
 ## Abuse
 
-We strongly discourage the use of this tool to squat on crate names that you do not intend to use. Please use this tool responsibly.
+**I strongly discourage the use of this tool to squat on crate names that you do not intend to use**. Please use this tool responsibly.
 
 ## Legal
 
