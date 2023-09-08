@@ -65,9 +65,8 @@ fn main() {
     let cargo_publish_opts = args
         .cargo_publish_opts
         .as_deref()
-        .unwrap_or_default()
-        .split(' ')
-        .collect::<Vec<_>>();
+        .map(|s| s.split(' ').collect::<Vec<_>>())
+        .unwrap_or_default();
     let exit_status = run_cargo_publish(source_dir.path(), &cargo_publish_opts);
     if !exit_status.success() {
         panic!("Failed to publish crate");
@@ -77,9 +76,11 @@ fn main() {
 fn run_cargo_publish(path: &Path, cargo_publish_opts: &[&str]) -> ExitStatus {
     env::set_current_dir(path).expect("Failed to change directory");
 
+    let mut args = vec!["publish"];
+    args.extend_from_slice(cargo_publish_opts);
+
     Command::new(cargo_path())
-        .arg("publish")
-        .args(cargo_publish_opts)
+        .args(args)
         .status()
         .expect("Failed to run cargo publish")
 }
