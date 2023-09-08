@@ -1,0 +1,8 @@
+[package]
+name = "{{PACKAGE_NAME}}"
+description = "{{DESCRIPTION}}"
+version = "0.0.0-reserved"
+license-file = "LICENSE"
+
+[lib]
+path = "lib.rs"
