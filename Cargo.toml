@@ -2,6 +2,11 @@
 name = "cargo-squatty"
 version = "0.1.0"
 authors = ["Filippo Neysofu Costa <filippo@neysofu.me>"]
+description = "Helper tool to reserve names for your crates on https://crates.io"
+repository = "https://github.com/neysofu/cargo-squatty"
+homepage = "https://github.com/neysofu/cargo-squatty"
+license-file = "LICENSE"
+license = "MIT"
 edition = "2021"
 
 [dependencies]
