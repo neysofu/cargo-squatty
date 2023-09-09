@@ -1,6 +1,6 @@
-# Cargo Squatty
+# `cargo-squatty` ![GitHub](https://img.shields.io/github/license/neysofu/cargo-squatty) ![Crates.io](https://img.shields.io/crates/v/cargo-squatty) ![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/neysofu/cargo-squatty/ci.yml)
 
-Squatty helps you reserve names for your crates on <crates.io>.
+`cargo-squatty` helps you reserve names for your crates on crates.io.
 
 ## Installation
 
@@ -47,4 +47,4 @@ See https://doc.rust-lang.org/cargo/reference/manifest.html#package-metadata for
 
 ## Legal
 
-Squatty is licensed under the [MIT license](LICENSE).
+`cargo-squatty` is licensed under the [MIT license](LICENSE).
