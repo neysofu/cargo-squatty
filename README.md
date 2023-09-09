@@ -12,14 +12,16 @@ $ cargo install cargo-squatty
 
 ```text
 $ cargo squatty --help
-Easily reserve a crate name on <crates.io>
+Helper tool to reserve names for your crates on https://crates.io
 
-Usage: squatty [OPTIONS] --crate-name <CRATE_NAME>
+Usage: cargo squatty [OPTIONS] --crate-name <CRATE_NAME>
 
 Options:
-  -c, --crate-name <CRATE_NAME>
+      --crate-name <CRATE_NAME>
           Name of the crate to publish
-  -s, --skip-confirmation
+      --crate-description <CRATE_DESCRIPTION>
+          Description of the crate to publish. Defaults to the crate name
+  -y, --yes
           Skip the confirmation prompt
   -o, --cargo-publish-opts <CARGO_PUBLISH_OPTS>
           Options to pass along to `cargo publish` e.g. `--dry-run`
