@@ -29,15 +29,16 @@ enum SquattySubcommand {
 #[derive(Parser, Debug)]
 #[command(author, version, about, long_about = None)]
 struct Args {
-    /// Name of the crate to publish
-    #[arg(short, long)]
+    /// Name of the crate to publish.
+    #[arg(long)]
     crate_name: String,
-
-    /// Skip the confirmation prompt
+    /// Description of the crate to publish. Defaults to the crate name.
+    #[arg(long)]
+    crate_description: Option<String>,
+    /// Skip the confirmation prompt.
     #[arg(short, long, default_value = "false")]
-    skip_confirmation: bool,
-
-    /// Options to pass along to `cargo publish` e.g. `--dry-run`
+    yes: bool,
+    /// Options to pass along to `cargo publish` e.g. `--dry-run`.
     #[arg(short = 'o', long, allow_hyphen_values = true)]
     cargo_publish_opts: Option<String>,
 }
@@ -47,7 +48,7 @@ fn main() {
         SquattySubcommand::Squatty(args) => args,
     };
 
-    let confirmation = if args.skip_confirmation {
+    let confirmation = if args.yes {
         Confirmation::Yes
     } else {
         ask_for_confirmation().expect("Failed to read user input. Aborting.")
@@ -59,8 +60,7 @@ fn main() {
         Confirmation::UnrecognizedInput => panic!("Invalid input. Aborting"),
     }
 
-    let source_dir =
-        create_tmpdir_with_crate_sources(&args.crate_name).expect("Failed to create tmpdir");
+    let source_dir = create_tmpdir_with_crate_sources(&args).expect("Failed to create tmpdir");
 
     let cargo_publish_opts = args
         .cargo_publish_opts
@@ -85,7 +85,7 @@ fn run_cargo_publish(path: &Path, cargo_publish_opts: &[&str]) -> ExitStatus {
         .expect("Failed to run cargo publish")
 }
 
-fn create_tmpdir_with_crate_sources(crate_name: &str) -> io::Result<TempDir> {
+fn create_tmpdir_with_crate_sources(args: &Args) -> io::Result<TempDir> {
     let dir = tempfile::tempdir()?;
 
     fn generate_cargo_toml_contents(crate_name: &str, description: &str) -> String {
@@ -97,7 +97,12 @@ fn create_tmpdir_with_crate_sources(crate_name: &str) -> io::Result<TempDir> {
 
     fs::write(
         dir.path().join("Cargo.toml"),
-        generate_cargo_toml_contents(crate_name, crate_name),
+        generate_cargo_toml_contents(
+            &args.crate_name,
+            args.crate_description
+                .as_deref()
+                .unwrap_or(&args.crate_name),
+        ),
     )?;
     fs::write(dir.path().join("lib.rs"), "")?;
     fs::write(dir.path().join("LICENSE"), "")?;
